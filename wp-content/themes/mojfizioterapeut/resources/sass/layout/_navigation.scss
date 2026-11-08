@@ -1,0 +1,10 @@
+@use "../abstracts/mixins" as *;
+
+.navigation {
+    &-list {
+        @include list-reset;
+
+        li {
+        }
+    }
+}

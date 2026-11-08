@@ -1,0 +1,424 @@
+<?php
+
+// phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- CRUD class for PMPro's discount code custom tables, which have no WordPress API or object cache layer.
+
+class PMPro_Discount_Code {
+
+	/**
+	 * Discount code id
+	 *
+	 * @var int $id
+	 */
+	public $id = 0;
+
+	/**
+	 * Discount code
+	 *
+	 * @var string $code
+	 */
+	public $code = '';
+
+	/**
+	 * When the discount code starts (YYYY-MM-DD format)
+	 *
+	 * @var string $starts
+	 */
+	public $starts = '';
+
+	/**
+	 * When the discount code expires (YYYY-MM-DD format)
+	 *
+	 * @var string $expires
+	 */
+	public $expires = '';
+
+	/**
+	 * how many times the discount code has been used. 0 means unlimited.
+	 *
+	 * @var int $uses
+	 */
+	public $uses = 0;
+
+	/**
+	 * Discount type: set_price, percentage, or fixed.
+	 * Null until loaded or set. save() keeps the stored value for existing codes and uses set_price for new codes.
+	 *
+	 * @var string|null $discount_type
+	 */
+	public $discount_type = null;
+
+	/**
+	 * Discount value for percentage/fixed codes, e.g. 20 for 20% off or 10 for 10 off.
+	 * Null until loaded or set. save() keeps the stored value for existing codes and uses 0 for new codes.
+	 *
+	 * @var float|null $discount_value
+	 */
+	public $discount_value = null;
+
+	/**
+	 * Whether a percentage/fixed discount applies to the initial payment.
+	 * Null until loaded or set. save() keeps the stored value for existing codes and uses 1 for new codes.
+	 *
+	 * @var int|null $apply_to_initial
+	 */
+	public $apply_to_initial = null;
+
+	/**
+	 * Whether a percentage/fixed discount applies to recurring payments.
+	 * Null until loaded or set. save() keeps the stored value for existing codes and uses 1 for new codes.
+	 *
+	 * @var int|null $apply_to_recurring
+	 */
+	public $apply_to_recurring = null;
+
+	/**
+	 * Levels and billing settings tied to the discount code.
+	 *
+	 * @var array $levels
+	 */
+	public $levels = array();
+
+    function __construct( $code = NULL ) {
+
+        if ( $code ) {
+            
+            if ( is_numeric( $code ) ) {
+                return $this->get_discount_code_by_id( $code );
+            } else {
+                return $this->get_discount_code_by_code( $code );
+            }
+
+        } else {
+            return $this->get_empty_discount_code();
+        }
+    }
+
+    /**
+     * Get an empty (but complete) discount code object.
+     * @since 2.3
+     */
+    function get_empty_discount_code() {
+
+        $discount_code = new stdClass();
+        $discount_code->id = '';
+        $discount_code->code = pmpro_getDiscountCode();
+        $discount_code->starts = date( 'Y-m-d' );
+        $discount_code->expires = date( 'Y-m-d', time() + 86400 );
+        $discount_code->uses = '';
+        $discount_code->levels = array(
+        // 1 => array(
+            // 'initial_payment' => '',
+            // 'billing_amount' => '',
+            // 'cycle_number' => '',
+            // 'cycle_period' => 'Month',
+            // 'billing_limit' => '',
+            // 'custom_trial' => 0,
+            // 'trial_amount' => '',
+            // 'trial_limit' => '',
+            // 'expiration_number' => '',
+            // 'expiration_period' => ''
+        // )
+        );
+        return $discount_code;
+    }
+
+    /**
+     * Get discount code object.
+     * @since 2.3
+     * @return $dcobj object The discount code object.
+     */
+    function get_discount_code_object( $code ) {
+        global $wpdb;
+
+        // Get the discount code object.
+        $dcobj = $wpdb->get_row(
+            $wpdb->prepare(
+                "SELECT * 
+                FROM $wpdb->pmpro_discount_codes 
+                WHERE code = %s",
+                $code
+            ),
+            OBJECT   
+        );
+
+        return $dcobj;
+    }
+
+    /**
+     *  Get levels and level billing settings by discount code.
+     * @since 2.3
+     * @return $levels obj levels that are tied to a discount code.
+     */
+    function get_discount_code_billing( $code ) {
+        global $wpdb;
+
+        $levels = $wpdb->get_results( 
+            $wpdb->prepare(
+                "SELECT cl.* 
+                FROM $wpdb->pmpro_discount_codes_levels cl 
+                LEFT JOIN $wpdb->pmpro_discount_codes cd 
+                ON cl.code_id = cd.id 
+                WHERE cd.code = %s",
+                $code
+                ),
+                OBJECT
+                );
+
+        return $levels;
+    }
+
+    /**
+     * Get discount code by code
+     * @since 2.3
+     */
+    function get_discount_code_by_code( $code ) {
+
+        // Get discount code object and levels linked to the code object..
+        $dcobj = $this->get_discount_code_object( $code );
+        $levels = $this->get_discount_code_billing( $code );        
+
+        if ( ! empty( $dcobj ) ) {
+            // Setup the discount code object.
+            $this->id = $dcobj->id;
+            $this->code = $dcobj->code;
+            $this->starts = $dcobj->starts;
+            $this->expires = $dcobj->expires;
+            $this->uses = $dcobj->uses;
+            $this->discount_type = ! empty( $dcobj->discount_type ) ? $dcobj->discount_type : 'set_price';
+            $this->discount_value = isset( $dcobj->discount_value ) ? $dcobj->discount_value : 0;
+            $this->apply_to_initial = isset( $dcobj->apply_to_initial ) ? $dcobj->apply_to_initial : 1;
+            $this->apply_to_recurring = isset( $dcobj->apply_to_recurring ) ? $dcobj->apply_to_recurring : 1;
+
+            foreach( $levels as $level ) {
+                $this->levels[$level->level_id] = array(
+                    'initial_payment' => $level->initial_payment,
+                    'billing_amount' => $level->billing_amount,
+                    'cycle_number' => $level->cycle_number,
+                    'cycle_period' => $level->cycle_period,
+                    'billing_limit' => $level->billing_limit,
+                    'custom_trial' => ! isset( $level->custom_trial ) ? 0 : $level->custom_trial,
+                    'trial_amount' => $level->trial_amount,
+                    'trial_limit' => $level->trial_limit,
+                    'expiration_number' => $level->expiration_number,
+                    'expiration_period' => $level->expiration_period
+                );
+            }
+            
+            return $this;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Get discount code by ID
+     * @since 2.3
+     */
+    function get_discount_code_by_id( $id ) {
+        global $wpdb;
+        // Get the discount code by code, then call function
+        $id = intval( $id );
+
+        $code = $wpdb->get_var("SELECT code FROM $wpdb->pmpro_discount_codes WHERE `id` =" . $id ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- $id is cast with intval() above.
+
+        return $this->get_discount_code_by_code( $code );
+
+    }
+
+    function save() {
+        global $wpdb;
+        
+        $sql_okay = false;
+        // See if code exists;
+        if ( isset( $this->code ) && ! empty( $this->code ) ) {
+            // see if row exists.
+            $results = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $wpdb->pmpro_discount_codes WHERE code = %s LIMIT 1", $this->code ) );
+
+            if ( $results ) {
+
+                if ( ! isset( $this->id ) ) {
+                    $this->id = $results->id;
+                }
+
+                if ( ! isset( $this->starts ) ) {
+                    $this->starts = $results->starts;
+                }
+        
+                if ( ! isset( $this->expires ) ) {
+                    $this->expires = $results->expires;
+                }
+        
+                if ( ! isset( $this->uses ) ) {
+                    $this->uses = $results->uses;
+                }
+
+                if ( ! isset( $this->discount_type ) ) {
+                    $this->discount_type = $results->discount_type;
+                }
+
+                if ( ! isset( $this->discount_value ) ) {
+                    $this->discount_value = $results->discount_value;
+                }
+
+                if ( ! isset( $this->apply_to_initial ) ) {
+                    $this->apply_to_initial = $results->apply_to_initial;
+                }
+
+                if ( ! isset( $this->apply_to_recurring ) ) {
+                    $this->apply_to_recurring = $results->apply_to_recurring;
+                }
+                
+            }
+
+        } else {
+
+            $this->code = pmpro_getDiscountCode();
+
+            if ( ! isset( $this->starts ) || empty( $this->starts ) ) {
+                $this->starts = date( 'Y-m-d' );
+            }
+
+            if ( ! isset( $this->expires ) || empty( $this->expires ) ) {
+                $this->expires = date( 'Y-m-d', time() + 86400 );
+            }
+
+            if ( ! isset( $this->uses ) || empty( $this->uses) ) {
+                $this->uses = 0;
+            }
+        }      
+
+        // Codes with no stored row default to applying to both payments.
+        // discount_type and discount_value fall back to set_price and 0 in the validation below.
+        if ( ! isset( $this->apply_to_initial ) ) {
+            $this->apply_to_initial = 1;
+        }
+        if ( ! isset( $this->apply_to_recurring ) ) {
+            $this->apply_to_recurring = 1;
+        }
+
+        // Make sure the discount type and value are valid.
+        if ( empty( $this->discount_type ) || ! array_key_exists( $this->discount_type, pmpro_get_discount_code_types() ) ) {
+            $this->discount_type = 'set_price';
+        }
+        $this->discount_value = max( 0, floatval( $this->discount_value ) );
+        if ( 'percentage' === $this->discount_type ) {
+            $this->discount_value = min( 100, $this->discount_value );
+        }
+
+        // If the code doesn't exist, create it otherwise update it.
+        if ( empty( $this->id ) ) {
+
+            $before_action = 'pmpro_add_discount_code';
+            $after_action = 'pmpro_added_discount_code';
+
+            $this->sqlQuery = "INSERT INTO $wpdb->pmpro_discount_codes ( `code`, `starts`, `expires`, `uses`, `discount_type`, `discount_value`, `apply_to_initial`, `apply_to_recurring` )
+                               VALUES ('" . esc_sql( $this->code ) . "',
+                                       '" . esc_sql( $this->starts ) ."',
+                                       '" . esc_sql( $this->expires ) ."',
+                                       " . intval( $this->uses ) .",
+                                       '" . esc_sql( $this->discount_type ) . "',
+                                       " . floatval( $this->discount_value ) . ",
+                                       " . ( ! empty( $this->apply_to_initial ) ? 1 : 0 ) . ",
+                                       " . ( ! empty( $this->apply_to_recurring ) ? 1 : 0 ) . "
+                               )";
+        } else {
+
+            $before_action = 'pmpro_update_discount_code';
+            $after_action = 'pmpro_updated_discount_code';
+
+            $this->sqlQuery = "UPDATE $wpdb->pmpro_discount_codes
+                                SET  `code` = '" . esc_sql( $this->code ) ."',
+                                    `starts` = '" . esc_sql( $this->starts ) . "',
+                                    `expires` = '" . esc_sql( $this->expires ) . "',
+                                    `uses` = " . intval( $this->uses ) . ",
+                                    `discount_type` = '" . esc_sql( $this->discount_type ) . "',
+                                    `discount_value` = " . floatval( $this->discount_value ) . ",
+                                    `apply_to_initial` = " . ( ! empty( $this->apply_to_initial ) ? 1 : 0 ) . ",
+                                    `apply_to_recurring` = " . ( ! empty( $this->apply_to_recurring ) ? 1 : 0 ) . "
+                                WHERE code = '" . esc_sql( $this->code ) . "'
+                                LIMIT 1";
+        }
+
+        // Make sure query ran okay.
+        do_action( $before_action, $this );
+        if ( $wpdb->query( $this->sqlQuery ) !== false ) { // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- Every value in sqlQuery is escaped with esc_sql() inside quotes or cast with intval()/floatval().
+            if ( empty ( $this->id ) ) {
+                $this->id = $wpdb->insert_id;
+            } 
+        }
+
+        // Delete levels if 0 or false is passed through.
+        if ( isset( $this->levels ) && ( $this->levels == 0 || $this->levels == false ) ) {
+            $wpdb->delete( $wpdb->pmpro_discount_codes_levels, array( 'code_id' => $this->id ), array( '%d' ) );
+        }
+
+        // Insert discount code level/billing data if it's set in the discount code object.
+        if ( isset( $this->levels ) && is_array( $this->levels ) ) {
+
+           // Nuke the levels table and rebuild it.
+           $wpdb->delete( $wpdb->pmpro_discount_codes_levels, array( 'code_id' => $this->id ), array( '%d' ) );
+
+            foreach ( $this->levels as $key => $data ) {
+                $level_id = intval( $key );
+                $initial_payment = $data['initial_payment'];
+                $billing_amount = $data['billing_amount'];
+                $cycle_number = $data['cycle_number'];
+                $cycle_period = pmpro_sanitize_period( $data['cycle_period'] );
+                $billing_limit = $data['billing_limit'];
+                $trial_amount = $data['trial_amount'];
+                $trial_limit = $data['trial_limit'];
+                $expiration_number = $data['expiration_number'];
+                $expiration_period = $data['expiration_period'];
+
+                $this->sqlQuery = "INSERT INTO $wpdb->pmpro_discount_codes_levels 
+                ( `code_id`, `level_id`, `initial_payment`, `billing_amount`, `cycle_number`, `cycle_period`, `billing_limit`, `trial_amount`, `trial_limit`, `expiration_number`, `expiration_period`) 
+                VALUES ( " . intval( $this->id ) . ",
+                        " . intval( $level_id ) . ",
+                        " . floatval( $initial_payment ) . ",
+                        " . floatval( $billing_amount ) . ",
+                        " . intval( $cycle_number ) . ",
+                        '" . esc_sql( $cycle_period ) . "',
+                        " . intval( $billing_limit ) . ",
+                        " . floatval( $trial_amount ) . ",
+                        " . intval( $trial_limit ) . ",
+                        " . intval( $expiration_number ) . ",
+                        '" . esc_sql( $expiration_period ) . "'
+                )";                
+                
+                // Run the query here.
+                if ( $wpdb->query( $this->sqlQuery ) !== false ) { // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- Every value in sqlQuery is escaped with esc_sql() inside quotes or cast with intval()/floatval().
+                    $sql_okay = true;
+                }
+
+                // For percentage/fixed codes, overwrite the pricing columns with a snapshot of
+                // the calculated prices. Checkout always recalculates from the level's pricing.
+                if ( 'set_price' !== $this->discount_type ) {
+                    $snapshot = pmpro_get_discount_code_level_snapshot( $this, $level_id );
+                    if ( ! empty( $snapshot ) ) {
+                        $wpdb->update(
+                            $wpdb->pmpro_discount_codes_levels,
+                            $snapshot,
+                            array(
+                                'code_id'  => $this->id,
+                                'level_id' => $level_id,
+                            )
+                        );
+                    }
+                }
+            }
+        }
+
+        do_action( $after_action, $this ); 
+        
+        unset( $this->sqlQuery ); //remove SQL query.
+
+        // Return values once updated/inserted.
+        if ( $sql_okay == true ) {
+            return $this->get_discount_code_by_id( $this->id );
+        } else {
+            return false;
+        }
+
+    }
+
+} // end of class.

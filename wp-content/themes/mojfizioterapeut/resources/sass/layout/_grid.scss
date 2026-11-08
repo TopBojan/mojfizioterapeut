@@ -1,0 +1,216 @@
+@use "../abstracts/mixins" as *;
+@use "../abstracts/variables" as *;
+
+.container {
+    margin-right: auto;
+    margin-left: auto;
+    max-width: $lg + 1 - $grid-column-gutter;
+    padding-left: 16px;
+    padding-right: 16px;
+    position: relative;
+
+    @include mixins.breakpoint(lg) {
+        max-width: 100%;
+        padding-left: 32px;
+        padding-right: 32px;
+    }
+
+    @include mixins.breakpoint(sm) {
+        padding-left: 24px;
+        padding-right: 24px;
+    }
+
+    &-fluid {
+        margin-right: auto;
+        margin-left: auto;
+        max-width: 100%;
+        position: relative;
+        width: 100%;
+    }
+}
+
+.row {
+    @include mixins.flex(flex, row, wrap, flex-start, flex-start);
+    margin-left: -16px;
+    margin-right: -16px;
+
+    @include mixins.breakpoint(xs) {
+        margin-left: -8px;
+        margin-right: -8px;
+    }
+
+    &.reverse {
+        flex-direction: row-reverse;
+    }
+
+    &.start {
+        justify-content: flex-start;
+    }
+
+    &.center {
+        justify-content: center;
+    }
+
+    &.end {
+        justify-content: flex-end;
+    }
+
+    &.between {
+        justify-content: space-between;
+    }
+
+    &.around {
+        justify-content: space-around;
+    }
+
+    &.top {
+        align-items: flex-start;
+    }
+
+    &.middle {
+        align-items: center;
+    }
+
+    &.bottom {
+        align-items: flex-end;
+    }
+
+    &.stretch {
+        align-items: stretch;
+    }
+}
+
+[class*="col-"] {
+    padding-left: 16px;
+    padding-right: 16px;
+    position: relative;
+
+    @include mixins.breakpoint(xs) {
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    &.first {
+        order: -1;
+    }
+
+    &.last {
+        order: 1;
+    }
+}
+
+.col {
+    &-lg {
+        @for $i from 1 through $grid-columns {
+            &-#{$i} {
+                @include mixins.column($i);
+            }
+        }
+
+        &-offset {
+            @for $i from 1 through $grid-columns {
+                &-#{$i} {
+                    @include mixins.column-offset($i);
+                }
+            }
+
+            &-0 {
+                margin-left: 0;
+            }
+        }
+    }
+
+    @include mixins.breakpoint(md) {
+        &-md {
+            @for $i from 1 through $grid-columns {
+                &-#{$i} {
+                    @include mixins.column($i);
+                }
+            }
+
+            &-offset {
+                @for $i from 1 through $grid-columns {
+                    &-#{$i} {
+                        @include mixins.column-offset($i);
+                    }
+                }
+
+                &-0 {
+                    margin-left: 0;
+                }
+            }
+        }
+    }
+
+    @include mixins.breakpoint(sm) {
+        &-sm {
+            @for $i from 1 through $grid-columns {
+                &-#{$i} {
+                    @include mixins.column($i);
+                }
+            }
+
+            &-offset {
+                @for $i from 1 through $grid-columns {
+                    &-#{$i} {
+                        @include mixins.column-offset($i);
+                    }
+                }
+
+                &-0 {
+                    margin-left: 0;
+                }
+            }
+        }
+    }
+
+    @include mixins.breakpoint(xs) {
+        &-lg,
+        &-md,
+        &-sm {
+            @for $i from 1 through $grid-columns {
+                &-#{$i} {
+                    width: 100%;
+                }
+            }
+
+            &-offset {
+                @for $i from 1 through $grid-columns {
+                    &-#{$i} {
+                        margin-left: 0;
+                    }
+                }
+            }
+        }
+
+        &-xs {
+            @for $i from 1 through $grid-columns {
+                &-#{$i} {
+                    @include mixins.column($i);
+                }
+            }
+
+            &-offset {
+                @for $i from 1 through $grid-columns {
+                    &-#{$i} {
+                        @include mixins.column-offset($i);
+                    }
+                }
+            }
+        }
+    }
+
+    &-auto {
+        flex-basis: 0;
+        flex-grow: 1;
+        max-width: 100%;
+        padding-left: 16px;
+        padding-right: 16px;
+        position: relative;
+
+        @include mixins.breakpoint(xs) {
+            padding-left: 8px;
+            padding-right: 8px;
+        }
+    }
+}
