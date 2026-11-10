@@ -1,4 +1,4 @@
-@use "../abstracts/mixins" as *;
+@use "../abstracts/mixins" as mixins;
 @use "../abstracts/variables" as *;
 
 .container {
@@ -31,6 +31,7 @@
 
 .row {
     @include mixins.flex(flex, row, wrap, flex-start, flex-start);
+    row-gap: 16px;
     margin-left: -16px;
     margin-right: -16px;
 

@@ -1,0 +1,358 @@
+@use "../abstracts/mixins" as mixins;
+@use "../abstracts/variables" as *;
+
+.eyebrow {
+    color: #75548a;
+    font-size: 13px;
+    font-weight: $font-weight-bold;
+    letter-spacing: 0.13em;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+}
+
+.landing-section {
+    padding: 80px 0;
+
+    @include mixins.breakpoint(sm) {
+        padding: 55px 0;
+    }
+
+    &.is-muted {
+        background: #f9f5fc;
+    }
+
+    p {
+        margin: 0 0 16px;
+    }
+
+    p:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.section-intro {
+    &.is-center {
+        margin: 0 auto 40px;
+        max-width: 800px;
+        text-align: center;
+    }
+}
+
+.section-text {
+    font-size: 17px;
+}
+
+.landing-lead {
+    font-size: 21px;
+    max-width: 600px;
+}
+
+.landing-note {
+    color: #61566a;
+    font-size: 13px;
+    margin-top: 12px;
+}
+
+.landing-hero {
+    background: linear-gradient(125deg, #fff 0%, #fcf7fd 58%, #f3e8fa 100%);
+
+    .button-primary {
+        margin: 18px 0;
+    }
+}
+
+.landing-checks {
+    @include mixins.list-reset;
+    color: #76646c;
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 13px;
+    gap: 8px 18px;
+    margin-top: 8px;
+
+    li::before {
+        content: "✓ ";
+    }
+}
+
+.landing-mock {
+    background: #fff;
+    border-radius: 22px;
+    box-shadow: 0 22px 60px rgba(20, 19, 20, 0.08);
+    padding: 20px;
+    transform: rotate(2deg);
+
+    img {
+        border-radius: 10px;
+        display: block;
+        height: auto;
+        width: 100%;
+    }
+
+    @include mixins.breakpoint(md) {
+        margin: 24px auto 0;
+        max-width: 420px;
+        transform: none;
+    }
+}
+
+.landing-strip {
+    background: $color-secondary;
+    color: #fff;
+    font-weight: $font-weight-bold;
+    padding: 23px 0;
+    text-align: center;
+}
+
+.landing-card,
+.landing-step,
+.landing-plan {
+    background: #fff;
+    border: 1px solid #eadcf0;
+    border-radius: 16px;
+    height: 100%;
+    padding: 28px;
+}
+
+.landing-card-number {
+    color: $color-purple;
+    font-family: $font-family-secondary;
+    font-size: 35px;
+    font-weight: $font-weight-bold;
+    line-height: 1;
+    margin-bottom: 12px;
+}
+
+.landing-cards-row,
+.landing-steps-row,
+.landing-plans-row,
+.landing-gallery-row {
+    align-items: stretch;
+}
+
+.landing-shot {
+    margin: 0;
+
+    img {
+        border: 1px solid #eee;
+        border-radius: 10px;
+        box-shadow: 0 10px 25px rgba(20, 19, 20, 0.08);
+        display: block;
+        height: auto;
+        width: 100%;
+    }
+
+    @include mixins.breakpoint(md) {
+        margin: 0 auto;
+        max-width: 420px;
+    }
+}
+
+.landing-video-benefit {
+    align-items: center;
+    background: #f7edfa;
+    border: 1px solid #e7c7ed;
+    border-radius: 22px;
+    display: grid;
+    gap: 28px;
+    grid-template-columns: 1.1fr 0.9fr;
+    padding: 28px;
+
+    @include mixins.breakpoint(md) {
+        grid-template-columns: 1fr;
+    }
+}
+
+.landing-video-tag {
+    background: $color-primary;
+    border-radius: 99px;
+    color: $color-secondary;
+    display: inline-block;
+    font-size: 13px;
+    font-weight: $font-weight-bold;
+    padding: 6px 12px;
+}
+
+.landing-video-list {
+    line-height: 1.9;
+    margin: 8px 0 0;
+    padding-left: 20px;
+}
+
+.landing-video-frame {
+    align-items: center;
+    aspect-ratio: 16 / 9;
+    background: linear-gradient(130deg, $color-secondary, #51435a);
+    border-radius: 16px;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    justify-content: center;
+    padding: 20px;
+    text-align: center;
+
+    span {
+        font-size: 13px;
+        opacity: 0.85;
+    }
+
+    &.is-embed,
+    &.is-image {
+        background: transparent;
+        display: block;
+        padding: 0;
+
+        iframe,
+        img {
+            border: 0;
+            border-radius: 16px;
+            display: block;
+            height: 100%;
+            width: 100%;
+        }
+    }
+}
+
+.landing-video-play {
+    color: $color-primary;
+    font-size: 48px;
+    line-height: 1;
+}
+
+.landing-plan {
+    border-radius: 22px;
+    box-shadow: 0 12px 35px rgba(20, 19, 20, 0.05);
+    padding: 32px;
+
+    &.is-featured {
+        background: #fcf7fe;
+        border: 2px solid $color-primary;
+    }
+
+    ul {
+        line-height: 2;
+        margin: 0 0 18px;
+        padding-left: 20px;
+    }
+
+    .button-primary {
+        margin-top: 8px;
+    }
+
+    @include mixins.breakpoint(sm) {
+        padding: 24px;
+    }
+}
+
+.landing-plan-price {
+    color: $color-secondary;
+    font-family: $font-family-secondary;
+    font-size: 40px;
+    font-weight: $font-weight-extrabold;
+    line-height: 1.1;
+    margin-bottom: 12px;
+
+    span {
+        font-size: 16px;
+        font-weight: $font-weight-regular;
+    }
+}
+
+.landing-step {
+    border-radius: 14px;
+}
+
+.landing-booking {
+    background: #f8f3fb;
+    border-radius: 20px;
+    margin: 32px auto 0;
+    max-width: 840px;
+    padding: 30px;
+
+    .button-primary {
+        margin-top: 8px;
+    }
+}
+
+.landing-offer {
+    background: $color-secondary;
+    border-radius: 25px;
+    color: #fff;
+    margin: 0 auto;
+    max-width: 770px;
+    padding: 50px 25px;
+    text-align: center;
+
+    .eyebrow {
+        color: $color-primary;
+    }
+
+    .heading,
+    p {
+        color: #fff;
+    }
+
+    .landing-note {
+        color: #f8eaf0;
+    }
+
+    .button-primary {
+        margin: 8px 0 16px;
+    }
+}
+
+.landing-offer-price {
+    font-family: $font-family-secondary;
+    font-size: 52px;
+    font-weight: $font-weight-bold;
+    line-height: 1.1;
+    margin: 8px 0 12px;
+}
+
+.landing-faq-list {
+    margin: 0 auto;
+    max-width: 790px;
+}
+
+.landing-faq-item {
+    border-bottom: 1px solid #eadcf0;
+    padding: 20px 0;
+
+    summary {
+        @include mixins.flex(flex, row, nowrap, space-between, center);
+        cursor: pointer;
+        font-family: $font-family-secondary;
+        font-size: 18px;
+        font-weight: $font-weight-semibold;
+        gap: 16px;
+        list-style: none;
+
+        &::-webkit-details-marker {
+            display: none;
+        }
+
+        &::after {
+            border-bottom: 2px solid $color-purple;
+            border-right: 2px solid $color-purple;
+            content: "";
+            flex: 0 0 auto;
+            height: 8px;
+            transform: rotate(45deg);
+            width: 8px;
+        }
+    }
+
+    &[open] summary::after {
+        margin-top: 6px;
+        transform: rotate(-135deg);
+    }
+}
+
+.landing-faq-answer {
+    padding-top: 12px;
+}
+
+.landing-cta-action {
+    text-align: center;
+}

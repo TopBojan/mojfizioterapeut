@@ -1,6 +1,7 @@
 // Font
-$font-family: "Open Sans", sans-serif;
-$font-size: 16px;
+$font-family: "Nunito", sans-serif;
+$font-family-secondary: "Poppins", sans-serif;
+$font-size: 18px;
 $font-weight-thin: 100;
 $font-weight-extrathin: 200;
 $font-weight-light: 300;
@@ -10,17 +11,21 @@ $font-weight-semibold: 600;
 $font-weight-bold: 700;
 $font-weight-extrabold: 800;
 $font-weight-black: 900;
-$line-height: 1.4;
+$line-height: 1.5;
 
-// Colors
+// Colors — Marina Fit Mama brand
 $color-background: #fff;
-$color-primary: #29b9e3;
-$color-text: #555;
-$color-link-default: #29b9e3;
-$color-link-hover: #df4a1c;
-$color-hr: #ccc;
-$color-heading: #333;
-$color-line: #ccc;
+$color-primary: #d395df;
+$color-secondary: #141314;
+$color-blue: #72bced;
+$color-purple: #8774c9;
+$color-text: $color-secondary;
+$color-link-default: $color-purple;
+$color-link-hover: $color-secondary;
+$color-hr: #eadcf0;
+$color-heading: $color-secondary;
+$color-line: #eadcf0;
+$color-gradient-default-direction: to left, #72bced, #8774c9, #d395df;
 $color-facebook: #3b5998;
 $color-twitter: #1da1f2;
 $color-pinterest: #bd081c;

@@ -1,0 +1,189 @@
+@use "../abstracts/mixins" as mixins;
+@use "../abstracts/variables" as *;
+
+body.locked {
+    overflow: hidden;
+}
+
+.guide-locked {
+    margin: 0 auto;
+    max-width: 720px;
+    text-align: center;
+}
+
+.guide-locked-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 24px;
+}
+
+.guide-login {
+    margin: 32px auto 0;
+    max-width: 420px;
+    text-align: left;
+
+    .login-username,
+    .login-password,
+    .login-remember,
+    .login-submit {
+        margin-bottom: 14px;
+    }
+
+    label {
+        display: block;
+        font-weight: $font-weight-bold;
+        margin-bottom: 6px;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+        background: #fff;
+        border: 1px solid #d9c5e1;
+        border-radius: 9px;
+        font-size: 16px;
+        padding: 13px;
+        width: 100%;
+    }
+
+    input[type="submit"] {
+        @include mixins.link-color(#fff, #fff, none, none);
+        background: linear-gradient($color-gradient-default-direction);
+        border: 0;
+        color: #fff;
+        cursor: pointer;
+        font-family: $font-family-secondary;
+        font-weight: $font-weight-semibold;
+        padding: 14px 28px;
+    }
+}
+
+.guide-calendly {
+    background: #f8f3fb;
+    border-radius: 22px;
+    margin-bottom: 48px;
+    padding: 32px;
+}
+
+.calendly-inline-widget {
+    height: 700px;
+    min-width: 280px;
+}
+
+.guide-pdf {
+    margin-bottom: 40px;
+}
+
+.guide-videos {
+    display: grid;
+    gap: 24px;
+    grid-template-columns: repeat(3, 1fr);
+
+    @include mixins.breakpoint(md) {
+        grid-template-columns: 1fr;
+    }
+}
+
+.guide-video-play {
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    display: block;
+    margin: 0 0 12px;
+    padding: 0;
+    position: relative;
+    width: 100%;
+}
+
+.guide-video-cover {
+    background-color: $color-secondary;
+    background-position: center;
+    background-size: cover;
+    border-radius: 16px;
+    display: block;
+    padding-bottom: 56.25%;
+
+    &.is-empty {
+        background-image: linear-gradient(130deg, $color-secondary, #51435a);
+    }
+}
+
+.guide-video-icon {
+    border-bottom: 14px solid transparent;
+    border-left: 22px solid #fff;
+    border-top: 14px solid transparent;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-40%, -50%);
+}
+
+.guide-video-duration {
+    color: #61566a;
+    font-size: 14px;
+}
+
+.guide-modal {
+    inset: 0;
+    position: fixed;
+    z-index: 100;
+
+    &[hidden] {
+        display: none;
+    }
+}
+
+.guide-modal-backdrop {
+    background: rgba(20, 19, 20, 0.72);
+    inset: 0;
+    position: absolute;
+}
+
+.guide-modal-dialog {
+    left: 50%;
+    max-width: 960px;
+    padding: 48px 20px;
+    position: relative;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: calc(100% - 32px);
+}
+
+.guide-modal-close {
+    background: transparent;
+    border: 0;
+    color: #fff;
+    cursor: pointer;
+    font-size: 36px;
+    line-height: 1;
+    position: absolute;
+    right: 12px;
+    top: 0;
+}
+
+.guide-modal-frame {
+    aspect-ratio: 16 / 9;
+    background: #000;
+
+    iframe {
+        border: 0;
+        height: 100%;
+        width: 100%;
+    }
+}
+
+.guide-account {
+    max-width: 720px;
+
+    .button-primary,
+    .button-outline {
+        margin-right: 12px;
+        margin-top: 8px;
+    }
+}
+
+.guide-account-note {
+    color: #61566a;
+    margin-top: 16px;
+}

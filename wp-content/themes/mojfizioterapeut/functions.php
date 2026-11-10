@@ -8,6 +8,7 @@ function theme_setup()
 {
     // Add support for document title tag
     add_theme_support('title-tag');
+    add_theme_support('woocommerce');
 
     // Add Thumbnail Theme Support
     add_theme_support('post-thumbnails');
@@ -175,6 +176,7 @@ $wp_basis_admin_branding = new Wp_Basis\Admin_Branding\Wp_Basis_Admin_Branding($
  */
 require get_template_directory() . '/inc/acf/option-pages.php';
 require get_template_directory() . '/inc/acf/register-acf-blocks.php';
+require get_template_directory() . '/inc/template-functions.php';
 
 
 /* 
@@ -208,3 +210,13 @@ require get_template_directory() . '/inc/utils/redirect_attachment_page.php';
 require get_template_directory() . '/inc/utils/add_gtag.php';
 // Add Custom Responsive Image Function
 require get_template_directory() . '/inc/utils/responsive-image.php';
+// Allow SVG uploads in the media library
+require get_template_directory() . '/inc/utils/svg-upload.php';
+
+require get_template_directory() . '/inc/guide/access.php';
+require get_template_directory() . '/inc/guide/download.php';
+require get_template_directory() . '/inc/guide/email.php';
+require get_template_directory() . '/inc/guide/account.php';
+require get_template_directory() . '/inc/guide/calendly.php';
+require get_template_directory() . '/inc/woocommerce.php';
+require get_template_directory() . '/inc/pmpro-locale.php';

@@ -1,9 +1,14 @@
 <?php get_header(); ?>
 
-	<h1>
-		Latest Posts
-	</h1>
-
-	<?php get_template_part('/template-parts/loop'); ?>
+<?php if (have_posts()) : ?>
+    <?php while (have_posts()) : the_post(); ?>
+        <section class="landing-section page-content">
+            <div class="container">
+                <h1 class="heading h2"><?php the_title(); ?></h1>
+                <?php the_content(); ?>
+            </div>
+        </section>
+    <?php endwhile; ?>
+<?php endif; ?>
 
 <?php get_footer(); ?>

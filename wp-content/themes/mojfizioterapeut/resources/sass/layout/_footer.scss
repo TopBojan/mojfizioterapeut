@@ -1,2 +1,28 @@
+@use "../abstracts/variables" as *;
+
 .footer {
+    background: #292a31;
+    color: #f8eaf0;
+    padding: 35px 0;
+    text-align: center;
+
+    a {
+        color: #fff;
+        font-weight: $font-weight-bold;
+        text-decoration: none;
+
+        &:hover {
+            color: $color-primary;
+        }
+    }
+
+    p {
+        margin: 8px 0 0;
+    }
+
+    &-title {
+        display: block;
+        font-family: $font-family-secondary;
+        letter-spacing: 0.04em;
+    }
 }

@@ -1,5 +1,5 @@
 <?php
-add_action('init', 'wp_theme_header_scripts');
+add_action('wp_enqueue_scripts', 'wp_theme_header_scripts');
 
 function wp_theme_header_scripts()
 {

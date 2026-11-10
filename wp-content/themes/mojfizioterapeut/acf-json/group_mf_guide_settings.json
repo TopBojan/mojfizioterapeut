@@ -1,0 +1,196 @@
+{
+    "key": "group_mf_guide_settings",
+    "title": "Guide access",
+    "fields": [
+        {
+            "key": "field_mf_guide_product",
+            "label": "PDF guide product",
+            "name": "guide_product",
+            "aria-label": "",
+            "type": "post_object",
+            "instructions": "The one-time WooCommerce product that unlocks the PDF and the video page.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "post_type": [
+                "product"
+            ],
+            "return_format": "id",
+            "ui": 1,
+            "taxonomy": [],
+            "allow_null": 0,
+            "multiple": 0,
+            "bidirectional_target": []
+        },
+        {
+            "key": "field_mf_guide_pdf",
+            "label": "PDF file",
+            "name": "guide_pdf",
+            "aria-label": "",
+            "type": "file",
+            "instructions": "Uploaded file is attached to the purchase email and offered on the profile and video page.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "library": "all",
+            "mime_types": "pdf",
+            "min_size": 0,
+            "max_size": 0
+        },
+        {
+            "key": "field_mf_guide_page",
+            "label": "Video page",
+            "name": "guide_page",
+            "aria-label": "",
+            "type": "post_object",
+            "instructions": "Page using the Guide Library template.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "post_type": [
+                "page"
+            ],
+            "return_format": "id",
+            "ui": 1,
+            "taxonomy": [],
+            "allow_null": 0,
+            "multiple": 0,
+            "bidirectional_target": []
+        },
+        {
+            "key": "field_mf_booking_page",
+            "label": "Booking page",
+            "name": "booking_page",
+            "aria-label": "",
+            "type": "post_object",
+            "instructions": "Page using the Guide Booking template. The Calendly form opens for the membership level below.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "post_type": [
+                "page"
+            ],
+            "return_format": "id",
+            "ui": 1,
+            "taxonomy": [],
+            "allow_null": 1,
+            "multiple": 0,
+            "bidirectional_target": []
+        },
+        {
+            "key": "field_mf_guide_level",
+            "label": "Membership level ID",
+            "name": "guide_membership_level",
+            "aria-label": "",
+            "type": "number",
+            "instructions": "Paid Memberships Pro level that opens the Calendly page only. It does not open the video and PDF page unless shared access is on. Leave empty to accept any active level.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "min": 0,
+            "default_value": "",
+            "max": "",
+            "step": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_mf_shared_access",
+            "label": "Shared page access",
+            "name": "guide_shared_access",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "Off: the WooCommerce product opens only the video and PDF page, and this membership level opens only Calendly. On: either the product or the membership opens both pages.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "Either purchase opens both pages",
+            "default_value": 0,
+            "ui": 1,
+            "ui_on_text": "On",
+            "ui_off_text": "Off"
+        },
+        {
+            "key": "field_mf_guide_calendly",
+            "label": "Calendly link",
+            "name": "calendly_url",
+            "aria-label": "",
+            "type": "url",
+            "instructions": "Scheduling link shown on the booking page. Example: https:\/\/calendly.com\/your-name\/30min",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_mf_guide_calendly_secret",
+            "label": "Calendly webhook signing key",
+            "name": "calendly_webhook_secret",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "In Calendly, create a webhook for invitee.created pointing to http:\/\/fizijatarweb.local\/wp-json\/mf\/v1\/calendly. Paste the signing key here so a booking reduces the 3 included meetings.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "theme-guide"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": [],
+    "active": true,
+    "description": "",
+    "show_in_rest": false,
+    "modified": 1794330448
+}
