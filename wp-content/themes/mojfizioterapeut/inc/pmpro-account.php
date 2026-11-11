@@ -62,9 +62,77 @@ function mf_pmpro_account_content()
         return;
     }
 
+    $user_id = get_current_user_id();
+    $notice = $user_id ? get_transient('mf_pmpro_cancel_notice_' . $user_id) : '';
+
+    if ($notice) {
+        delete_transient('mf_pmpro_cancel_notice_' . $user_id);
+        echo '<div class="woocommerce-message" role="status">' . wp_kses_post($notice) . '</div>';
+    }
+
     echo '<div class="mf-membership-account">';
     echo do_shortcode('[pmpro_account sections="membership,invoices"]');
     echo '</div>';
+}
+
+function mf_pmpro_pretplata_url()
+{
+    if (function_exists('wc_get_account_endpoint_url')) {
+        $url = wc_get_account_endpoint_url('pretplata');
+
+        if ($url) {
+            return $url;
+        }
+    }
+
+    return function_exists('wc_get_page_permalink') ? wc_get_page_permalink('myaccount') : '';
+}
+
+add_filter('pmpro_url', 'mf_pmpro_account_url', 20, 3);
+
+function mf_pmpro_account_url($url, $page, $querystring)
+{
+    if ($page !== 'account') {
+        return $url;
+    }
+
+    $account_url = mf_pmpro_pretplata_url();
+
+    return $account_url ? $account_url : $url;
+}
+
+add_action('wp', 'mf_pmpro_redirect_account_page', 1);
+
+function mf_pmpro_redirect_account_page()
+{
+    if (is_admin() || empty($GLOBALS['pmpro_pages']['account']) || !is_page((int) $GLOBALS['pmpro_pages']['account'])) {
+        return;
+    }
+
+    $target = mf_pmpro_pretplata_url();
+
+    if ($target) {
+        wp_safe_redirect($target, 301);
+        exit;
+    }
+}
+
+add_action('pmpro_cancel_processed', 'mf_pmpro_redirect_after_cancel');
+
+function mf_pmpro_redirect_after_cancel($user)
+{
+    global $pmpro_msg;
+
+    if (!empty($user->ID) && !empty($pmpro_msg)) {
+        set_transient('mf_pmpro_cancel_notice_' . $user->ID, $pmpro_msg, MINUTE_IN_SECONDS);
+    }
+
+    $target = mf_pmpro_pretplata_url();
+
+    if ($target) {
+        wp_safe_redirect($target);
+        exit;
+    }
 }
 
 add_filter('pmpro_url', 'mf_pmpro_hide_levels_url', 20, 3);
