@@ -1027,11 +1027,11 @@
                                 },
                                 {
                                     "key": "field_mf_plans_item_source",
-                                    "label": "Price source",
+                                    "label": "Card source",
                                     "name": "source",
                                     "aria-label": "",
                                     "type": "select",
-                                    "instructions": "The price and the button address are read from the WooCommerce product or the membership level you choose. Leave this as typed to keep the price and link below.",
+                                    "instructions": "The card title, price, and button address are read from the WooCommerce product or the membership level you choose.",
                                     "required": 0,
                                     "conditional_logic": 0,
                                     "wrapper": {
@@ -1040,7 +1040,7 @@
                                         "id": ""
                                     },
                                     "choices": {
-                                        "manual": "Type the price",
+                                        "manual": "Type the title and price",
                                         "product": "WooCommerce product",
                                         "membership": "Membership level"
                                     },
@@ -1059,7 +1059,7 @@
                                     "name": "product",
                                     "aria-label": "",
                                     "type": "post_object",
-                                    "instructions": "The card price is this product's price. The button opens this product.",
+                                    "instructions": "The card title and price are this product's name and price. The button opens this product.",
                                     "required": 0,
                                     "conditional_logic": [
                                         [
@@ -1092,7 +1092,7 @@
                                     "name": "membership_level",
                                     "aria-label": "",
                                     "type": "select",
-                                    "instructions": "The card price is this level's price. The button opens its checkout. A billing period is added after the price when Price suffix is empty.",
+                                    "instructions": "The card title and price are this level's name and price. The button opens its checkout. A billing period is added after the price when Price suffix is empty.",
                                     "required": 0,
                                     "conditional_logic": [
                                         [
@@ -1145,9 +1145,17 @@
                                     "name": "title",
                                     "aria-label": "",
                                     "type": "text",
-                                    "instructions": "",
+                                    "instructions": "Shown when Card source is Type the title and price.",
                                     "required": 0,
-                                    "conditional_logic": 0,
+                                    "conditional_logic": [
+                                        [
+                                            {
+                                                "field": "field_mf_plans_item_source",
+                                                "operator": "==",
+                                                "value": "manual"
+                                            }
+                                        ]
+                                    ],
                                     "wrapper": {
                                         "width": "",
                                         "class": "",
@@ -1166,9 +1174,17 @@
                                     "name": "price",
                                     "aria-label": "",
                                     "type": "text",
-                                    "instructions": "Used when Price source is Type the price.",
+                                    "instructions": "Shown when Card source is Type the title and price.",
                                     "required": 0,
-                                    "conditional_logic": 0,
+                                    "conditional_logic": [
+                                        [
+                                            {
+                                                "field": "field_mf_plans_item_source",
+                                                "operator": "==",
+                                                "value": "manual"
+                                            }
+                                        ]
+                                    ],
                                     "wrapper": {
                                         "width": "50",
                                         "class": "",
@@ -2174,5 +2190,5 @@
     "active": true,
     "description": "",
     "show_in_rest": false,
-    "modified": 1794364200
+    "modified": 1794366292
 }

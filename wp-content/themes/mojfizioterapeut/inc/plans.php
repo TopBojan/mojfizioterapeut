@@ -113,10 +113,7 @@ function mf_plan_card()
         $product = ($product_id && function_exists('wc_get_product')) ? wc_get_product($product_id) : null;
 
         if ($product) {
-            if ($title === '') {
-                $title = $product->get_name();
-            }
-
+            $title = $product->get_name();
             $price = mf_plain_price($product->get_price());
             $url = get_permalink($product->get_id());
         }
@@ -125,10 +122,7 @@ function mf_plan_card()
         $level = ($level_id && function_exists('pmpro_getLevel')) ? pmpro_getLevel($level_id) : null;
 
         if ($level) {
-            if ($title === '') {
-                $title = $level->name;
-            }
-
+            $title = $level->name;
             $amount = ((float) $level->billing_amount > 0) ? (float) $level->billing_amount : (float) $level->initial_payment;
             $price = mf_plain_price($amount);
 
