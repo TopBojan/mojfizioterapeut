@@ -35,6 +35,28 @@ function mf_checkout_summary_close()
     echo '</div>';
 }
 
+add_action('template_redirect', 'mf_hide_shop_page');
+
+function mf_hide_shop_page()
+{
+    if (is_admin() || !function_exists('is_shop') || !is_shop()) {
+        return;
+    }
+
+    global $wp_query;
+
+    $wp_query->set_404();
+    status_header(404);
+    nocache_headers();
+}
+
+add_filter('woocommerce_return_to_shop_redirect', 'mf_hide_shop_return_url');
+
+function mf_hide_shop_return_url()
+{
+    return home_url('/');
+}
+
 add_filter('woocommerce_currency_symbol', 'mf_latin_currency_symbol', 10, 2);
 
 function mf_latin_currency_symbol($symbol, $currency)

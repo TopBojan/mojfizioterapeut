@@ -263,7 +263,7 @@ body.woocommerce-checkout {
             display: none;
         }
 
-        a {
+        a:not(.button) {
             color: $color-purple;
         }
 
@@ -951,8 +951,21 @@ body.woocommerce-account {
             display: none;
         }
 
-        a {
+        a:not(.button) {
             color: $color-purple;
+        }
+
+        a.button,
+        button.button,
+        input.button,
+        .button {
+            color: #fff;
+
+            &:hover,
+            &:focus,
+            &:active {
+                color: #fff;
+            }
         }
     }
 
