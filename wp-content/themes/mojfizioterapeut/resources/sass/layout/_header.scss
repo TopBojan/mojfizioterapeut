@@ -135,6 +135,10 @@ body.admin-bar .site-header {
             row-gap: 12px;
         }
 
+        &-actions {
+            display: contents;
+        }
+
         &-brand {
             grid-column: 1;
             grid-row: 1;
