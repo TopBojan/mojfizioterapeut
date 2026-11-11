@@ -2,8 +2,8 @@
 	Main JS
 */
 
-$(document).ready(function () {});
+jQuery(function ($) {
+    $(window).on("load", function () {});
 
-$(window).load(function () {});
-
-$(window).resize(function () {});
+    $(window).on("resize", function () {});
+});

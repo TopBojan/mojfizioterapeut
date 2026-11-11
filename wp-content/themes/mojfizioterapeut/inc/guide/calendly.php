@@ -42,12 +42,44 @@ function mf_calendly_grant_credits_on_renewal($order)
     }
 }
 
+function mf_calendly_record_booking($user_id, $event_uri)
+{
+    $user_id = (int) $user_id;
+    $event_uri = esc_url_raw($event_uri);
+
+    if (!$user_id || strpos($event_uri, 'https://api.calendly.com/') !== 0 || !mf_user_has_membership($user_id)) {
+        return mf_calendly_credits($user_id);
+    }
+
+    $seen = get_user_meta($user_id, 'mf_calendly_event_uris', true);
+    $seen = is_array($seen) ? $seen : array();
+
+    if (!in_array($event_uri, $seen, true)) {
+        $credits = mf_calendly_credits($user_id);
+
+        if ($credits > 0) {
+            update_user_meta($user_id, 'mf_calendly_credits', $credits - 1);
+        }
+
+        $seen[] = $event_uri;
+        update_user_meta($user_id, 'mf_calendly_event_uris', $seen);
+    }
+
+    return mf_calendly_credits($user_id);
+}
+
 function mf_calendly_register_webhook()
 {
     register_rest_route('mf/v1', '/calendly', array(
         'methods'             => 'POST',
         'callback'            => 'mf_calendly_webhook',
         'permission_callback' => '__return_true',
+    ));
+
+    register_rest_route('mf/v1', '/calendly-booked', array(
+        'methods'             => 'POST',
+        'callback'            => 'mf_calendly_booked',
+        'permission_callback' => 'is_user_logged_in',
     ));
 }
 
@@ -93,26 +125,26 @@ function mf_calendly_webhook(WP_REST_Request $request)
     }
 
     $email = sanitize_email($data['payload']['email'] ?? '');
-    $event_uri = sanitize_text_field($data['payload']['scheduled_event']['uri'] ?? ($data['payload']['uri'] ?? ''));
+    $event_uri = $data['payload']['scheduled_event']['uri'] ?? ($data['payload']['uri'] ?? '');
     $user = $email ? get_user_by('email', $email) : false;
 
     if (!$user || !$event_uri || !mf_user_has_membership($user->ID)) {
         return new WP_REST_Response(array('ok' => true, 'matched' => false), 200);
     }
 
-    $seen = get_user_meta($user->ID, 'mf_calendly_event_uris', true);
-    $seen = is_array($seen) ? $seen : array();
+    return new WP_REST_Response(array(
+        'ok' => true,
+        'credits' => mf_calendly_record_booking($user->ID, $event_uri),
+    ), 200);
+}
 
-    if (!in_array($event_uri, $seen, true)) {
-        $credits = mf_calendly_credits($user->ID);
+function mf_calendly_booked(WP_REST_Request $request)
+{
+    $event_uri = (string) $request->get_param('event_uri');
+    $credits = mf_calendly_record_booking(get_current_user_id(), $event_uri);
 
-        if ($credits > 0) {
-            update_user_meta($user->ID, 'mf_calendly_credits', $credits - 1);
-        }
-
-        $seen[] = $event_uri;
-        update_user_meta($user->ID, 'mf_calendly_event_uris', $seen);
-    }
-
-    return new WP_REST_Response(array('ok' => true), 200);
+    return new WP_REST_Response(array(
+        'ok' => true,
+        'credits' => $credits,
+    ), 200);
 }
