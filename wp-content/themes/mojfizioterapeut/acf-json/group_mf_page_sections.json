@@ -791,7 +791,7 @@
                             "name": "video",
                             "aria-label": "",
                             "type": "oembed",
-                            "instructions": "Optional. Paste a video URL. If empty, the image or placeholder is shown.",
+                            "instructions": "Optional. Paste a YouTube or Vimeo URL. If empty, the image or placeholder is shown.",
                             "required": 0,
                             "conditional_logic": 0,
                             "wrapper": {
@@ -2081,5 +2081,5 @@
     "active": true,
     "description": "",
     "show_in_rest": false,
-    "modified": 1794265681
+    "modified": 1794352500
 }
