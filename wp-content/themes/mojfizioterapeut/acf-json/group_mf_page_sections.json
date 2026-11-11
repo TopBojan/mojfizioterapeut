@@ -136,6 +136,10 @@
                             },
                             "layout": "table",
                             "button_label": "Add check",
+                            "min": 0,
+                            "max": 0,
+                            "rows_per_page": 20,
+                            "collapsed": "",
                             "sub_fields": [
                                 {
                                     "key": "field_mf_hero_check_text",
@@ -158,11 +162,7 @@
                                     "append": "",
                                     "parent_repeater": "field_mf_hero_checks"
                                 }
-                            ],
-                            "min": 0,
-                            "max": 0,
-                            "rows_per_page": 20,
-                            "collapsed": ""
+                            ]
                         },
                         {
                             "key": "field_mf_hero_image",
@@ -351,6 +351,10 @@
                             },
                             "layout": "block",
                             "button_label": "Add card",
+                            "min": 0,
+                            "max": 0,
+                            "rows_per_page": 20,
+                            "collapsed": "",
                             "sub_fields": [
                                 {
                                     "key": "field_mf_cards_item_number",
@@ -415,11 +419,7 @@
                                     "placeholder": "",
                                     "parent_repeater": "field_mf_cards_items"
                                 }
-                            ],
-                            "min": 0,
-                            "max": 0,
-                            "rows_per_page": 20,
-                            "collapsed": ""
+                            ]
                         }
                     ],
                     "min": "",
@@ -737,6 +737,10 @@
                             },
                             "layout": "table",
                             "button_label": "Add point",
+                            "min": 0,
+                            "max": 0,
+                            "rows_per_page": 20,
+                            "collapsed": "",
                             "sub_fields": [
                                 {
                                     "key": "field_mf_video_point_text",
@@ -759,11 +763,7 @@
                                     "append": "",
                                     "parent_repeater": "field_mf_video_points"
                                 }
-                            ],
-                            "min": 0,
-                            "max": 0,
-                            "rows_per_page": 20,
-                            "collapsed": ""
+                            ]
                         },
                         {
                             "key": "field_mf_video_note",
@@ -999,6 +999,10 @@
                             },
                             "layout": "block",
                             "button_label": "Add plan",
+                            "min": 0,
+                            "max": 0,
+                            "rows_per_page": 20,
+                            "collapsed": "",
                             "sub_fields": [
                                 {
                                     "key": "field_mf_plans_item_featured",
@@ -1019,6 +1023,99 @@
                                     "message": "",
                                     "ui_on_text": "",
                                     "ui_off_text": "",
+                                    "parent_repeater": "field_mf_plans_items"
+                                },
+                                {
+                                    "key": "field_mf_plans_item_source",
+                                    "label": "Price source",
+                                    "name": "source",
+                                    "aria-label": "",
+                                    "type": "select",
+                                    "instructions": "The price and the button address are read from the WooCommerce product or the membership level you choose. Leave this as typed to keep the price and link below.",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "choices": {
+                                        "manual": "Type the price",
+                                        "product": "WooCommerce product",
+                                        "membership": "Membership level"
+                                    },
+                                    "default_value": "manual",
+                                    "return_format": "value",
+                                    "multiple": 0,
+                                    "allow_null": 0,
+                                    "ui": 1,
+                                    "ajax": 0,
+                                    "placeholder": "",
+                                    "parent_repeater": "field_mf_plans_items"
+                                },
+                                {
+                                    "key": "field_mf_plans_item_product",
+                                    "label": "WooCommerce product",
+                                    "name": "product",
+                                    "aria-label": "",
+                                    "type": "post_object",
+                                    "instructions": "The card price is this product's price. The button opens this product.",
+                                    "required": 0,
+                                    "conditional_logic": [
+                                        [
+                                            {
+                                                "field": "field_mf_plans_item_source",
+                                                "operator": "==",
+                                                "value": "product"
+                                            }
+                                        ]
+                                    ],
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "post_type": [
+                                        "product"
+                                    ],
+                                    "return_format": "id",
+                                    "ui": 1,
+                                    "taxonomy": [],
+                                    "allow_null": 1,
+                                    "multiple": 0,
+                                    "bidirectional_target": [],
+                                    "parent_repeater": "field_mf_plans_items"
+                                },
+                                {
+                                    "key": "field_mf_plans_item_level",
+                                    "label": "Membership level",
+                                    "name": "membership_level",
+                                    "aria-label": "",
+                                    "type": "select",
+                                    "instructions": "The card price is this level's price. The button opens its checkout. A billing period is added after the price when Price suffix is empty.",
+                                    "required": 0,
+                                    "conditional_logic": [
+                                        [
+                                            {
+                                                "field": "field_mf_plans_item_source",
+                                                "operator": "==",
+                                                "value": "membership"
+                                            }
+                                        ]
+                                    ],
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "choices": [],
+                                    "default_value": "",
+                                    "return_format": "value",
+                                    "multiple": 0,
+                                    "allow_null": 1,
+                                    "ui": 1,
+                                    "ajax": 0,
+                                    "placeholder": "",
                                     "parent_repeater": "field_mf_plans_items"
                                 },
                                 {
@@ -1069,7 +1166,7 @@
                                     "name": "price",
                                     "aria-label": "",
                                     "type": "text",
-                                    "instructions": "",
+                                    "instructions": "Used when Price source is Type the price.",
                                     "required": 0,
                                     "conditional_logic": 0,
                                     "wrapper": {
@@ -1090,7 +1187,7 @@
                                     "name": "price_suffix",
                                     "aria-label": "",
                                     "type": "text",
-                                    "instructions": "Example: \/ mesec",
+                                    "instructions": "Example: \/ mesec. For a membership level this is filled from the billing period when left empty.",
                                     "required": 0,
                                     "conditional_logic": 0,
                                     "wrapper": {
@@ -1142,6 +1239,11 @@
                                     },
                                     "layout": "table",
                                     "button_label": "Add feature",
+                                    "min": 0,
+                                    "max": 0,
+                                    "rows_per_page": 20,
+                                    "collapsed": "",
+                                    "parent_repeater": "field_mf_plans_items",
                                     "sub_fields": [
                                         {
                                             "key": "field_mf_plans_feature_text",
@@ -1164,12 +1266,7 @@
                                             "append": "",
                                             "parent_repeater": "field_mf_plans_item_features"
                                         }
-                                    ],
-                                    "min": 0,
-                                    "max": 0,
-                                    "rows_per_page": 20,
-                                    "collapsed": "",
-                                    "parent_repeater": "field_mf_plans_items"
+                                    ]
                                 },
                                 {
                                     "key": "field_mf_plans_item_button",
@@ -1177,7 +1274,7 @@
                                     "name": "button",
                                     "aria-label": "",
                                     "type": "link",
-                                    "instructions": "",
+                                    "instructions": "The label is the text you enter here. When a product or membership level is selected, the address is that product or that level's checkout.",
                                     "required": 0,
                                     "conditional_logic": 0,
                                     "wrapper": {
@@ -1209,11 +1306,7 @@
                                     "placeholder": "",
                                     "parent_repeater": "field_mf_plans_items"
                                 }
-                            ],
-                            "min": 0,
-                            "max": 0,
-                            "rows_per_page": 20,
-                            "collapsed": ""
+                            ]
                         }
                     ],
                     "min": "",
@@ -1347,6 +1440,10 @@
                             },
                             "layout": "block",
                             "button_label": "Add step",
+                            "min": 0,
+                            "max": 0,
+                            "rows_per_page": 20,
+                            "collapsed": "",
                             "sub_fields": [
                                 {
                                     "key": "field_mf_steps_item_number",
@@ -1411,11 +1508,7 @@
                                     "placeholder": "",
                                     "parent_repeater": "field_mf_steps_items"
                                 }
-                            ],
-                            "min": 0,
-                            "max": 0,
-                            "rows_per_page": 20,
-                            "collapsed": ""
+                            ]
                         },
                         {
                             "key": "field_mf_steps_show_booking",
@@ -1871,6 +1964,10 @@
                             },
                             "layout": "block",
                             "button_label": "Add question",
+                            "min": 0,
+                            "max": 0,
+                            "rows_per_page": 20,
+                            "collapsed": "",
                             "sub_fields": [
                                 {
                                     "key": "field_mf_faq_question",
@@ -1914,11 +2011,7 @@
                                     "placeholder": "",
                                     "parent_repeater": "field_mf_faq_items"
                                 }
-                            ],
-                            "min": 0,
-                            "max": 0,
-                            "rows_per_page": 20,
-                            "collapsed": ""
+                            ]
                         }
                     ],
                     "min": "",
@@ -2081,5 +2174,5 @@
     "active": true,
     "description": "",
     "show_in_rest": false,
-    "modified": 1794352500
+    "modified": 1794364200
 }

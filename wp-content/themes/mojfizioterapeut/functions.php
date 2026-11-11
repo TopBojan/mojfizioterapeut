@@ -213,6 +213,7 @@ require get_template_directory() . '/inc/utils/responsive-image.php';
 // Allow SVG uploads in the media library
 require get_template_directory() . '/inc/utils/svg-upload.php';
 require get_template_directory() . '/inc/utils/video-embed.php';
+require get_template_directory() . '/inc/plans.php';
 
 require get_template_directory() . '/inc/guide/access.php';
 require get_template_directory() . '/inc/guide/download.php';
