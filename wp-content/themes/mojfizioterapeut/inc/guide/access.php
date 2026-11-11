@@ -54,6 +54,21 @@ function mf_booking_page_url()
     return $page_id ? get_permalink($page_id) : '';
 }
 
+function mf_guide_copy($field, $fallback)
+{
+    if (!function_exists('get_field')) {
+        return $fallback;
+    }
+
+    $value = get_field($field);
+
+    if (!is_string($value) || trim(wp_strip_all_tags($value)) === '') {
+        return $fallback;
+    }
+
+    return $value;
+}
+
 function mf_guide_ensure_booking_page()
 {
     if (mf_booking_page_id()) {

@@ -1,0 +1,163 @@
+{
+    "key": "group_mf_guide_locked",
+    "title": "Locked screen",
+    "fields": [
+        {
+            "key": "field_mf_guide_locked_note",
+            "label": "Note",
+            "name": "",
+            "aria-label": "",
+            "type": "message",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "Shown when the visitor is logged out or has not unlocked the videos and PDF.",
+            "new_lines": "wpautop",
+            "esc_html": 0
+        },
+        {
+            "key": "field_mf_guide_locked_eyebrow",
+            "label": "Eyebrow",
+            "name": "guide_locked_eyebrow",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Video vežbe",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_mf_guide_locked_title",
+            "label": "Title",
+            "name": "guide_locked_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Ovaj sadržaj je otključan kupovinom vodiča.",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_mf_guide_locked_text",
+            "label": "Text",
+            "name": "guide_locked_text",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 3,
+            "new_lines": "br",
+            "default_value": "PDF vodič i video demonstracije dostupni su nakon jednokratne kupovine. Zakazivanje termina je deo LIVE pretplate.",
+            "maxlength": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_mf_guide_locked_login",
+            "label": "Login heading",
+            "name": "guide_locked_login",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Već imate nalog?",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_mf_guide_locked_product",
+            "label": "PDF button",
+            "name": "guide_locked_product",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Shown when the visitor has not bought the guide.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Kupi PDF vodič",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_mf_guide_locked_membership",
+            "label": "Membership button",
+            "name": "guide_locked_membership",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Shown when the visitor has no active membership.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Uzmi LIVE pretplatu",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "page-templates\/template-guide.php"
+            }
+        ]
+    ],
+    "menu_order": 10,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": [],
+    "active": true,
+    "description": "",
+    "show_in_rest": false,
+    "modified": 1794432000
+}

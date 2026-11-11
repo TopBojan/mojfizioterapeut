@@ -1,0 +1,145 @@
+{
+    "key": "group_mf_booking_locked",
+    "title": "Locked screen",
+    "fields": [
+        {
+            "key": "field_mf_booking_locked_note",
+            "label": "Note",
+            "name": "",
+            "aria-label": "",
+            "type": "message",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "Shown when the visitor is logged out or does not have booking access. The PDF button stays hidden on this page.",
+            "new_lines": "wpautop",
+            "esc_html": 0
+        },
+        {
+            "key": "field_mf_booking_locked_eyebrow",
+            "label": "Eyebrow",
+            "name": "booking_locked_eyebrow",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "LIVE termini",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_mf_booking_locked_title",
+            "label": "Title",
+            "name": "booking_locked_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Zakazivanje je deo LIVE pretplate.",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_mf_booking_locked_text",
+            "label": "Text",
+            "name": "booking_locked_text",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 3,
+            "new_lines": "br",
+            "default_value": "PDF i video vežbe ostaju dostupni nakon kupovine vodiča. Tri termina za razgovor otključava samo aktivna pretplata.",
+            "maxlength": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_mf_booking_locked_login",
+            "label": "Login heading",
+            "name": "booking_locked_login",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Već imate nalog?",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_mf_booking_locked_membership",
+            "label": "Membership button",
+            "name": "booking_locked_membership",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Shown when the visitor has no active membership.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Uzmi LIVE pretplatu",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "page-templates\/template-booking.php"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": [
+        "the_content"
+    ],
+    "active": true,
+    "description": "",
+    "show_in_rest": false,
+    "modified": 1794432000
+}
