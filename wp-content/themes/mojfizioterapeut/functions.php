@@ -222,3 +222,4 @@ require get_template_directory() . '/inc/guide/account.php';
 require get_template_directory() . '/inc/guide/calendly.php';
 require get_template_directory() . '/inc/woocommerce.php';
 require get_template_directory() . '/inc/pmpro-locale.php';
+require get_template_directory() . '/inc/pmpro-account.php';

@@ -38,6 +38,7 @@
         }
         ?>
 
+        <div class="site-header">
         <header class="header" role="banner">
             <div class="container">
                 <div class="header-inner">
@@ -48,41 +49,44 @@
                         <span class="header-brand-name"><?php echo esc_html($brand); ?></span>
                     </a>
 
-                    <?php
-                    $guide_url = mf_guide_page_url();
-                    $booking_url = mf_booking_page_url();
-                    $show_guide_link = $guide_url && (!is_user_logged_in() || mf_user_can_access_guide());
-                    $show_booking_link = $booking_url && (!is_user_logged_in() || mf_user_can_access_booking());
-                    $show_header_link = !empty($header_link['url']) && !empty($header_link['title']);
-                    ?>
-                    <?php if ($show_header_link || $show_guide_link || $show_booking_link) : ?>
-                        <nav class="header-nav" aria-label="Glavni meni">
-                            <?php if ($show_header_link) : ?>
-                                <a class="header-link" href="<?php echo esc_url($header_link['url']); ?>" <?php echo !empty($header_link['target']) ? 'target="' . esc_attr($header_link['target']) . '" rel="noopener"' : ''; ?>>
-                                    <?php echo esc_html($header_link['title']); ?>
-                                </a>
-                            <?php endif; ?>
-
-                            <?php if ($show_guide_link) : ?>
-                                <a class="header-guide" href="<?php echo esc_url($guide_url); ?>">Video i PDF</a>
-                            <?php endif; ?>
-
-                            <?php if ($show_booking_link) : ?>
-                                <a class="header-link" href="<?php echo esc_url($booking_url); ?>">Zakazivanje</a>
-                            <?php endif; ?>
-                        </nav>
-                    <?php endif; ?>
-
-                    <?php $account_label = is_user_logged_in() ? 'Profil' : 'Prijava'; ?>
-                    <a class="header-account" href="<?php echo esc_url(mf_header_account_url()); ?>" aria-label="<?php echo esc_attr($account_label); ?>">
-                        <svg class="header-account-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                            <circle cx="12" cy="8" r="3.25"></circle>
-                            <path d="M5.75 19.25a6.25 6.25 0 0 1 12.5 0"></path>
-                        </svg>
-                    </a>
+                    <div class="header-actions">
+                        <?php
+                        $guide_url = mf_guide_page_url();
+                        $booking_url = mf_booking_page_url();
+                        $show_guide_link = $guide_url && (!is_user_logged_in() || mf_user_can_access_guide());
+                        $show_booking_link = $booking_url && (!is_user_logged_in() || mf_user_can_access_booking());
+                        $show_header_link = !empty($header_link['url']) && !empty($header_link['title']);
+                        ?>
+                        <?php if ($show_header_link || $show_guide_link || $show_booking_link) : ?>
+                            <nav class="header-nav" aria-label="Glavni meni">
+                                <?php if ($show_header_link) : ?>
+                                    <a class="header-link" href="<?php echo esc_url($header_link['url']); ?>" <?php echo !empty($header_link['target']) ? 'target="' . esc_attr($header_link['target']) . '" rel="noopener"' : ''; ?>>
+                                        <?php echo esc_html($header_link['title']); ?>
+                                    </a>
+                                <?php endif; ?>
+    
+                                <?php if ($show_guide_link) : ?>
+                                    <a class="header-guide" href="<?php echo esc_url($guide_url); ?>">Video i PDF</a>
+                                <?php endif; ?>
+    
+                                <?php if ($show_booking_link) : ?>
+                                    <a class="header-link" href="<?php echo esc_url($booking_url); ?>">Zakazivanje</a>
+                                <?php endif; ?>
+                            </nav>
+                        <?php endif; ?>
+    
+                        <?php $account_label = is_user_logged_in() ? 'Profil' : 'Prijava'; ?>
+                        <a class="header-account" href="<?php echo esc_url(mf_header_account_url()); ?>" aria-label="<?php echo esc_attr($account_label); ?>">
+                            <svg class="header-account-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                                <circle cx="12" cy="8" r="3.25"></circle>
+                                <path d="M5.75 19.25a6.25 6.25 0 0 1 12.5 0"></path>
+                            </svg>
+                        </a>
+                    </div>
                 </div>
             </div>
         </header>
         <div class="brand-line" aria-hidden="true"></div>
+        </div>
 
         <main class="main" role="main">

@@ -17,3 +17,20 @@ function mf_pmpro_use_site_locale($locale, $domain)
     return get_locale();
 }
 add_filter('plugin_locale', 'mf_pmpro_use_site_locale', 10, 2);
+
+/**
+ * Strings added after the installed Serbian catalog (Paid Memberships Pro 2.12).
+ */
+function mf_pmpro_missing_translations($translation, $text)
+{
+    if ($translation !== $text) {
+        return $translation;
+    }
+
+    $missing = array(
+        'This username is invalid because it uses illegal characters. Please enter a valid username.' => 'Ovo korisničko ime nije ispravno jer sadrži nedozvoljene znakove. Unesite ispravno korisničko ime.',
+    );
+
+    return isset($missing[$text]) ? $missing[$text] : $translation;
+}
+add_filter('gettext_paid-memberships-pro', 'mf_pmpro_missing_translations', 10, 2);

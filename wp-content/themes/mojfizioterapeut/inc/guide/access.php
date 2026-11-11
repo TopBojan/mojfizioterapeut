@@ -226,5 +226,5 @@ function mf_membership_url()
         return pmpro_url('checkout', '?level=' . $level);
     }
 
-    return pmpro_url('levels');
+    return home_url('/#paketi');
 }

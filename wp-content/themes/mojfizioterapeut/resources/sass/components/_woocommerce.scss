@@ -884,4 +884,22 @@ body.woocommerce-account {
     .guide-account {
         max-width: none;
     }
+
+    .mf-membership-account {
+        .pmpro_section_title {
+            font-size: 28px;
+        }
+
+        .pmpro_card_title {
+            font-size: 22px;
+        }
+
+        .pmpro_table {
+            width: 100%;
+        }
+
+        a {
+            font-weight: $font-weight-semibold;
+        }
+    }
 }
