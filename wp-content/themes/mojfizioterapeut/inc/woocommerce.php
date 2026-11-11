@@ -22,6 +22,19 @@ function mf_product_description()
     echo '</div>';
 }
 
+add_action('woocommerce_checkout_before_order_review_heading', 'mf_checkout_summary_open', 5);
+add_action('woocommerce_checkout_after_order_review', 'mf_checkout_summary_close', 20);
+
+function mf_checkout_summary_open()
+{
+    echo '<div class="mf-checkout-summary">';
+}
+
+function mf_checkout_summary_close()
+{
+    echo '</div>';
+}
+
 add_filter('woocommerce_currency_symbol', 'mf_latin_currency_symbol', 10, 2);
 
 function mf_latin_currency_symbol($symbol, $currency)
