@@ -53,8 +53,8 @@
                         <?php
                         $guide_url = mf_guide_page_url();
                         $booking_url = mf_booking_page_url();
-                        $show_guide_link = $guide_url && (!is_user_logged_in() || mf_user_can_access_guide());
-                        $show_booking_link = $booking_url && (!is_user_logged_in() || mf_user_can_access_booking());
+                        $show_guide_link = (bool) $guide_url;
+                        $show_booking_link = (bool) $booking_url;
                         $show_header_link = !empty($header_link['url']) && !empty($header_link['title']);
                         ?>
                         <?php if ($show_header_link || $show_guide_link || $show_booking_link) : ?>

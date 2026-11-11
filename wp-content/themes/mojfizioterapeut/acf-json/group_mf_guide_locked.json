@@ -16,7 +16,7 @@
                 "class": "",
                 "id": ""
             },
-            "message": "Shown when the visitor is logged out or has not unlocked the videos and PDF.",
+            "message": "Shown when the visitor cannot open this page. The membership button appears only when Membership includes videos and PDF is on.",
             "new_lines": "wpautop",
             "esc_html": 0
         },
@@ -76,7 +76,7 @@
             },
             "rows": 3,
             "new_lines": "br",
-            "default_value": "PDF vodič i video demonstracije dostupni su nakon jednokratne kupovine. Zakazivanje termina je deo LIVE pretplate.",
+            "default_value": "PDF vodič i video demonstracije dostupni su nakon jednokratne kupovine.",
             "maxlength": "",
             "placeholder": ""
         },
@@ -110,7 +110,7 @@
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
-                "width": "50",
+                "width": "",
                 "class": "",
                 "id": ""
             },
@@ -126,11 +126,11 @@
             "name": "guide_locked_membership",
             "aria-label": "",
             "type": "text",
-            "instructions": "Shown when the visitor has no active membership.",
+            "instructions": "Shown on this page only when Membership includes videos and PDF is on, and the visitor has no membership.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
-                "width": "50",
+                "width": "",
                 "class": "",
                 "id": ""
             },
@@ -159,5 +159,5 @@
     "active": true,
     "description": "",
     "show_in_rest": false,
-    "modified": 1794432000
+    "modified": 1794522600
 }

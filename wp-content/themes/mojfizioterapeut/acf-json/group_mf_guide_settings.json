@@ -100,7 +100,7 @@
             "name": "guide_membership_level",
             "aria-label": "",
             "type": "number",
-            "instructions": "Paid Memberships Pro level that opens the Calendly page only. It does not open the video and PDF page unless shared access is on. Leave empty to accept any active level.",
+            "instructions": "Paid Memberships Pro level that opens Zakazivanje. It also opens the video and PDF page when the switch below is on. Leave empty to accept any active level.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -118,11 +118,11 @@
         },
         {
             "key": "field_mf_shared_access",
-            "label": "Shared page access",
+            "label": "Membership includes videos and PDF",
             "name": "guide_shared_access",
             "aria-label": "",
             "type": "true_false",
-            "instructions": "Off: the WooCommerce product opens only the video and PDF page, and this membership level opens only Calendly. On: either the product or the membership opens both pages.",
+            "instructions": "Off: only a guide purchase opens the video and PDF page. On: an active membership opens that page too. Zakazivanje stays available only with a membership.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -130,7 +130,7 @@
                 "class": "",
                 "id": ""
             },
-            "message": "Either purchase opens both pages",
+            "message": "Members can open the video and PDF page",
             "default_value": 0,
             "ui": 1,
             "ui_on_text": "On",
@@ -192,5 +192,5 @@
     "active": true,
     "description": "",
     "show_in_rest": false,
-    "modified": 1794330448
+    "modified": 1794522600
 }

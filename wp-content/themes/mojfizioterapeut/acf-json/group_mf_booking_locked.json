@@ -16,7 +16,7 @@
                 "class": "",
                 "id": ""
             },
-            "message": "Shown when the visitor is logged out or does not have booking access. The PDF button stays hidden on this page.",
+            "message": "Shown when the visitor is logged out or has no active membership. This page shows only the membership button.",
             "new_lines": "wpautop",
             "esc_html": 0
         },
@@ -76,7 +76,7 @@
             },
             "rows": 3,
             "new_lines": "br",
-            "default_value": "PDF i video vežbe ostaju dostupni nakon kupovine vodiča. Tri termina za razgovor otključava samo aktivna pretplata.",
+            "default_value": "Tri termina za razgovor otključava aktivna pretplata.",
             "maxlength": "",
             "placeholder": ""
         },
@@ -141,5 +141,5 @@
     "active": true,
     "description": "",
     "show_in_rest": false,
-    "modified": 1794432000
+    "modified": 1794520800
 }

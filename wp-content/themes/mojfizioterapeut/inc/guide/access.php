@@ -180,7 +180,7 @@ function mf_user_has_membership($user_id = 0)
     return (bool) pmpro_hasMembershipLevel(null, $user_id);
 }
 
-function mf_guide_access_is_shared()
+function mf_membership_includes_guide()
 {
     if (!function_exists('get_field')) {
         return false;
@@ -195,16 +195,12 @@ function mf_user_can_access_guide($user_id = 0)
         return true;
     }
 
-    return mf_guide_access_is_shared() && mf_user_has_membership($user_id);
+    return mf_membership_includes_guide() && mf_user_has_membership($user_id);
 }
 
 function mf_user_can_access_booking($user_id = 0)
 {
-    if (mf_user_has_membership($user_id)) {
-        return true;
-    }
-
-    return mf_guide_access_is_shared() && mf_user_bought_guide($user_id);
+    return mf_user_has_membership($user_id);
 }
 
 function mf_order_has_guide($order)

@@ -12,13 +12,9 @@ if ($embed && $user && $user->user_email) {
 }
 ?>
 <section class="guide-calendly">
-    <div class="eyebrow"><?php echo esc_html(mf_user_has_membership() ? 'Uključeno u pretplatu' : 'Otvoreno uz vodič'); ?></div>
+    <div class="eyebrow">Uključeno u pretplatu</div>
     <h2 class="heading h4">Zakaži termin</h2>
-    <?php if (mf_user_has_membership()) : ?>
-        <p>U ovom periodu imate <?php echo (int) MF_CALENDLY_CREDITS; ?> termina. Preostalo: <strong id="guide-calendly-remaining"><?php echo (int) $credits; ?></strong>.</p>
-    <?php else : ?>
-        <p>Izaberite slobodan termin.</p>
-    <?php endif; ?>
+    <p>U ovom periodu imate <?php echo (int) MF_CALENDLY_CREDITS; ?> termina. Preostalo: <strong id="guide-calendly-remaining"><?php echo (int) $credits; ?></strong>.</p>
 
     <?php if (mf_user_has_membership() && $credits < 1) : ?>
         <p>Iskoristili ste sva tri termina. Novi termini se otvaraju kada se pretplata obnovi.</p>

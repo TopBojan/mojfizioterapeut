@@ -15,16 +15,10 @@ $booking_url = mf_booking_page_url();
 
     <?php if ($can_book) : ?>
         <h2 class="heading h4">Zakazivanje</h2>
-        <?php if (mf_user_has_membership()) : ?>
-            <p>LIVE pretplata otvara kalendar za termine.</p>
-        <?php else : ?>
-            <p>Kalendar za termine je otvoren uz kupljeni vodič.</p>
-        <?php endif; ?>
+        <p>LIVE pretplata otvara kalendar za termine.</p>
         <?php if ($booking_url) : ?>
             <p><a class="button-primary" href="<?php echo esc_url($booking_url); ?>">Zakaži termin</a></p>
         <?php endif; ?>
-        <?php if (mf_user_has_membership()) : ?>
-            <p class="guide-account-note">LIVE pretplata uključuje još <?php echo (int) mf_calendly_credits(); ?> od <?php echo (int) MF_CALENDLY_CREDITS; ?> termina.</p>
-        <?php endif; ?>
+        <p class="guide-account-note">LIVE pretplata uključuje još <?php echo (int) mf_calendly_credits(); ?> od <?php echo (int) MF_CALENDLY_CREDITS; ?> termina.</p>
     <?php endif; ?>
 </div>
