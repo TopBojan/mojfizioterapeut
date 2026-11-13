@@ -35,6 +35,52 @@ function mf_checkout_summary_close()
     echo '</div>';
 }
 
+add_filter('woocommerce_checkout_fields', 'mf_minimal_checkout_fields');
+
+function mf_minimal_checkout_fields($fields)
+{
+    $hidden = array(
+        'billing_company',
+        'billing_country',
+        'billing_address_1',
+        'billing_address_2',
+        'billing_city',
+        'billing_state',
+        'billing_postcode',
+        'billing_phone',
+    );
+
+    foreach ($hidden as $key) {
+        unset($fields['billing'][$key]);
+    }
+
+    if (isset($fields['order']['order_comments'])) {
+        unset($fields['order']['order_comments']);
+    }
+
+    return $fields;
+}
+
+add_filter('woocommerce_checkout_posted_data', 'mf_checkout_default_country');
+
+function mf_checkout_default_country($data)
+{
+    if (empty($data['billing_country'])) {
+        $data['billing_country'] = 'RS';
+    }
+
+    return $data;
+}
+
+add_action('woocommerce_checkout_create_order', 'mf_checkout_order_country');
+
+function mf_checkout_order_country($order)
+{
+    if ($order->get_billing_country() === '') {
+        $order->set_billing_country('RS');
+    }
+}
+
 add_action('template_redirect', 'mf_hide_shop_page');
 
 function mf_hide_shop_page()
